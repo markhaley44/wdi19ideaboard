@@ -11,6 +11,9 @@ router.delete('/api/users/:userId', userController.delete)
 
 router.get('/api/users/:userId/ideas', ideasController.index)
 router.get('/api/ideas/:ideaId', ideasController.show)
+router.delete('/api/ideas/:ideaId', ideasController.delete)
+router.patch('/api/ideas/:ideaId', ideasController.update)
+router.post('/api/users/:userId/ideas', ideasController.create)
 
 module.exports = router
 

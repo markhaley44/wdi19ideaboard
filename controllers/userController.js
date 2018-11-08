@@ -9,7 +9,7 @@ const userController = {
             })
     },
     show: (req, res) => {
-        User.findById(req.params.userId)
+        User.findById(req.params.userId).populate('ideas')
             .then((user) => {
                 res.send(user)
             })
