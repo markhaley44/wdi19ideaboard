@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import AddUserForm from './AddUserForm';
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
+const GeneralStyles = styled.div`
+    text-align: center;
+`
 
 class UserList extends Component {
     state = {
-        users: [{}]
+        users: [{}],
+        addUserFormVisible: false
     }
 
     componentDidMount() {
@@ -15,17 +23,25 @@ class UserList extends Component {
         .then((res) => this.setState({ users: res.data }))
     }
 
+    toggleAddUserForm = () => {
+        this.setState({ addUserFormVisible: !this.state.addUserFormVisible })
+    }
+
     render() {
         return (
-            <div>
+            <GeneralStyles>
                 <h1>Hey from user view</h1>
-                <button>Create new user</button>
+                <button onClick={this.toggleAddUserForm}>Create new user</button>
+                {this.state.addUserFormVisible ? <AddUserForm
+                    getAllUsers={this.getAllUsers}
+                    toggleAddUserForm={this.toggleAddUserForm}
+                    /> : null}
                 {this.state.users.map((user, i) => (
                     <div key={i}>
-                        <h3>{user.username}</h3>
+                        <Link to={`/users/${user._id}`}><h3>{user.username}</h3></Link>
                     </div>
                 ))}
-            </div>
+            </GeneralStyles>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 
-class AddUserForm extends Component {
+class EditUserForm extends Component {
     state = {
         user: {
             username: '',
@@ -18,10 +18,10 @@ class AddUserForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         const payload = this.state.user
-        axios.post('/api/users', payload)
+        const userId = this.props.userId
+        axios.patch(`/api/users/${userId}`, payload)
         .then((res) => {
-            this.props.getAllUsers()
-            this.props.toggleAddUserForm()
+            this.props.getSingleUser()
         })
     }
 
@@ -51,4 +51,4 @@ class AddUserForm extends Component {
     }
 }
 
-export default AddUserForm;
+export default EditUserForm;
