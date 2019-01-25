@@ -6,7 +6,8 @@ class SingleUser extends Component {
     state = {
         user: {
             ideas: [{}]
-        }
+        },
+        editFormVisible: false
     }
 
     componentDidMount() {
@@ -16,15 +17,19 @@ class SingleUser extends Component {
     getSingleUser = () => {
         const userId = this.props.match.params.userId
         axios.get(`/api/users/${userId}`)
-        .then((res) => {
-            this.setState({ user: res.data })
-        })
+            .then((res) => {
+                this.setState({ user: res.data })
+            })
     }
 
     deleteUser = () => {
         const userId = this.props.match.params.userId
         axios.delete(`/api/users/${userId}`)
-        .then(() => this.props.history.goBack())
+            .then(() => this.props.history.goBack())
+    }
+
+    toggleEditUserForm = () => {
+        this.setState({ editFormVisible: !this.state.editFormVisible })
     }
 
 
@@ -34,11 +39,12 @@ class SingleUser extends Component {
                 <h1>{this.state.user.username}'s Ideas</h1>
                 <p>Password: {this.state.user.password}</p>
 
-                <div><button>Edit User</button></div>
-                <EditUserForm
-                getSingleUser={this.getSingleUser}
-                userId={this.state.user._id}
-                />
+                <div><button onClick={this.toggleEditUserForm}>Edit User</button></div>
+                {this.state.editFormVisible ? <EditUserForm
+                    getSingleUser={this.getSingleUser}
+                    userId={this.state.user._id}
+                    toggleEditUserForm={this.toggleEditUserForm}
+                /> : null}
                 <div><button onClick={this.deleteUser}>Delete User</button></div>
 
                 {this.state.user.ideas.map((idea, i) => (

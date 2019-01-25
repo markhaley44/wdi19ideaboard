@@ -22,6 +22,7 @@ class EditUserForm extends Component {
         axios.patch(`/api/users/${userId}`, payload)
         .then((res) => {
             this.props.getSingleUser()
+            this.props.toggleEditUserForm()
         })
     }
 
