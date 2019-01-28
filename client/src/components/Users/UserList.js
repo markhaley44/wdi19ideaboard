@@ -1,31 +1,4 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import axios from axios
-
-class UserList extends Component {
-    state = {
-        users: [{}]
-    }
-    componentDidMount() {
-        this.getAllUsers()
-    }
-    getAllUsers = () => {
-        axios.get(`api/users`)
-            .then((res) => this.setState({ users: res.data }))
-    }
-    render() {
-        return (
-            <div>
-                <h1>Hey from the user view</h1>
-                {this.state.users.map((user, i) =>
-                    <div key={i}>
-                        <h3>{user.username}</h3>
-                    </div>)}
-            </div>
-        )
-    }
-}
-=======
 import axios from 'axios'
 import AddUserForm from './AddUserForm';
 import styled from 'styled-components'
@@ -74,4 +47,3 @@ class UserList extends Component {
 }
 
 export default UserList;
->>>>>>> ece385e52a8016e504ef7ad95628186c73115863
